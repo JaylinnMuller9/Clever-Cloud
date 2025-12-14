@@ -1,2 +1,5 @@
 #!/bin/bash
-python3 app.py & $START_CMD
+set -e
+
+echo "Starting Flask app on port $PORT"
+python3 app.py
