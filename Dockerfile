@@ -1,4 +1,4 @@
-FROM python:3.9.7-slim-trixie
+FROM python:3.9.7-slim-bullseye
 
 WORKDIR /app
 
