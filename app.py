@@ -1,18 +1,20 @@
-import os
-from flask import Flask
-from flask_restful import Resource, Api
+FROM python:3.9.7-slim-buster
 
-app = Flask(__name__)
-api = Api(app)
+WORKDIR /app
 
-class Greeting(Resource):
-    def get(self):
-        return {"message": "Clever Cloud is Up & Running!"}
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y git curl ffmpeg python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
-api.add_resource(Greeting, '/')
+# Install Python deps
+RUN pip install flask flask-restful
 
-if __name__ == "__main__":
-    app.run(
-        host="0.0.0.0",
-        port=int(os.environ.get("PORT", 8080))
-    )
+# Install sshx (optional)
+RUN curl -sSf https://sshx.io/get | sh
+
+COPY app.py .
+COPY start.sh .
+
+RUN chmod +x start.sh
+
+CMD ["./start.sh"]
