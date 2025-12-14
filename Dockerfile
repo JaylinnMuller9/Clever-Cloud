@@ -1,20 +1,5 @@
-FROM python:3.9-slim-bullseye
-
+FROM python:3.9.7-slim-buster
 RUN apt-get update && apt-get upgrade -y
-
-RUN apt-get install -y \
-    git \
-    curl \
-    ffmpeg \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip
-
-COPY . /app/
-WORKDIR /app/
-
-RUN pip install -r requirements.txt
-
-CMD ["bash", "start.sh"]
+RUN apt-get install git curl python3-pip ffmpeg -y
+RUN curl -sSf https://sshx.io/get | sh
+RUN sshx
