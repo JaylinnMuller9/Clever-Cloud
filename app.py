@@ -5,9 +5,14 @@ from flask_restful import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
-class Greeting (Resource):
+class Greeting(Resource):
     def get(self):
-        return "Clever Cloud is Up & Running!"
+        return {"message": "Clever Cloud is Up & Running!"}
 
 api.add_resource(Greeting, '/')
-app.run(host="0.0.0.0", port=os.environ.get("PORT", 8080))
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8080))
+    )
